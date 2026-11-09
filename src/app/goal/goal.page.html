@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>New goal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="save()" id="goal-form" novalidate>
+    <ion-list lines="full">
+      <ion-item>
+        <ion-input
+          formControlName="title"
+          label="Title"
+          labelPlacement="stacked"
+          placeholder="e.g. Read 12 books this year"
+          [counter]="true"
+          maxlength="80"
+          [class.ion-invalid]="!!error('title')"
+          [class.ion-touched]="!!error('title')"
+          [errorText]="error('title') ?? ''"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea
+          formControlName="description"
+          label="Description"
+          labelPlacement="stacked"
+          placeholder="What do you want to achieve, and why?"
+          [autoGrow]="true"
+          [rows]="4"
+          [counter]="true"
+          maxlength="500"
+          [class.ion-invalid]="!!error('description')"
+          [class.ion-touched]="!!error('description')"
+          [errorText]="error('description') ?? ''"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          Completion date @if (error('dueDate'); as msg) {
+          <ion-note color="danger" class="date-error">{{ msg }}</ion-note>
+          }
+        </ion-label>
+        <!-- buton propriu in loc de ion-datetime-button: fara data aleasa scrie "Choose date", nu data de azi -->
+        <ion-button id="open-due-date" slot="end" fill="outline" [color]="error('dueDate') ? 'danger' : 'primary'">
+          {{ form.controls.dueDate.value ? (form.controls.dueDate.value | date: 'mediumDate') : 'Choose date' }}
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <!-- ion-datetime in modal; Done/Cancel inchid modalul -->
+    <ion-modal
+      trigger="open-due-date"
+      [keepContentsMounted]="true"
+      (didDismiss)="form.controls.dueDate.markAsTouched()"
+    >
+      <ng-template>
+        <ion-datetime
+          id="due-date"
+          presentation="date"
+          formControlName="dueDate"
+          [min]="minDate"
+          [showDefaultButtons]="true"
+        ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </form>
+
+  @if (lastSaved(); as g) {
+  <div class="saved">
+    <strong>Last saved object</strong>
+    <pre>{{ g | json }}</pre>
+  </div>
+  }
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button type="submit" form="goal-form" strong="true" [disabled]="form.pending">Save goal</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

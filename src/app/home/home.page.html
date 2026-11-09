@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Ionic / Angular demo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Ionic / Angular demo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list inset="true">
+    <ion-list-header>Components</ion-list-header>
+    <ion-item routerLink="/faq" detail="true">
+      <ion-icon name="help-circle-outline" slot="start" aria-hidden="true"></ion-icon>
+      <ion-label>
+        <h2>FAQ</h2>
+        <p>ion-accordion, questions and answers</p>
+      </ion-label>
+    </ion-item>
+    <ion-item routerLink="/goal" detail="true">
+      <ion-icon name="flag-outline" slot="start" aria-hidden="true"></ion-icon>
+      <ion-label>
+        <h2>New goal</h2>
+        <p>Reactive Forms, validation, date picker</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,18 @@
+.date-error {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.saved {
+  margin-top: 24px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--ion-color-light);
+
+  pre {
+    margin: 8px 0 0;
+    white-space: pre-wrap;
+    font-size: 0.8rem;
+  }
+}
